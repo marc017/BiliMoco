@@ -1,0 +1,30 @@
+export default Object.freeze({
+  ACCOUNT: 'Account',
+  ADDRESSES: 'Addresses',
+  ADDRESS_EDIT: 'AddressEdit',
+  CART: 'Cart',
+  FEED: 'Feed',
+  LISTINGS: 'Listings',
+  LISTING_DETAILS: 'ListingDetails',
+  LISTING_EDIT: 'ListingEdit',
+  LOGIN: 'Login',
+  LOGOUT: 'Logout',
+  MESSAGES: 'Messages',
+  ORDERS: 'Orders',
+  REGISTER: 'Register',
+  STORES: 'Stores',
+  STORE_DETAILS: 'StoreDetails',
+  STORE_ITEMS: 'StoreItems',
+  WELCOME: 'Welcome',
+
+  MY_STORE: 'MyStore',
+  MY_STORE_EDIT: 'MyStoreEdits',
+  MY_STORE_ITEMS: 'MyStoreItems',
+  MY_STORE_ITEMS_EDIT: 'MyStoreItemsEdit',
+  MY_STORE_ORDER: 'MyStoreOrder',
+
+  //Riders
+  ORDER_BOARD: 'OrderBoard',
+  RIDER_ORDER: 'RiderOrder',
+  RIDER_REPORT: 'RiderReport',
+});

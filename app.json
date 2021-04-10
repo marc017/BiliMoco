@@ -4,20 +4,30 @@
     "slug": "BiliMoco",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./app/assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "image": "./app/assets/splash.png",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.moco.bilimoco",
+      "buildNumber": "1.0.0"
+    },
+    "notification": {
+      "iosDisplayInForeground": true,
+      "icon": "./app/assets/icon.png",
+      "color": "#3498db",
+      "androidMode": "default",
+      "androidCollapsedTitle": "BiliMoco"
+    },
+    "android": {
+      "useNextNotificationsApi": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
