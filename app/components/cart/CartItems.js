@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 import cartApi from '../../api/cart';
 import ordersApi from '../../api/orders';
@@ -29,16 +30,18 @@ function CartItems({ cart, onCartCheckout, onCartUpdate }) {
     setRefreshing(true);
   };
 
+ 
+
   const handlePriceUpdate = async () => {
     let tempTotalPrice = 0;
     await cart.items.forEach((i) => {
-      console.log('item', i);
+      
       (tempTotalPrice += i.quantity * i.price)
     });
-
-    cart.total_price = tempTotalPrice;
-    cart.total_price += cart.delivery_fee;
-    setTotalPrice(tempTotalPrice);
+    console.log('item', tempTotalPrice, deliveryRate);
+    cart.total_price = tempTotalPrice + cart.delivery_fee;
+    // cart.total_price += cart.delivery_fee;
+    setTotalPrice(cart.total_price);
     cartApi.updateCart(cart);
   };
 
@@ -59,6 +62,10 @@ function CartItems({ cart, onCartCheckout, onCartUpdate }) {
     onCartCheckout(cart);
     // setUploadVisible(false);
   };
+
+  useEffect(() => {
+    handlePriceUpdate()
+  }, [useIsFocused]);
 
   return (
     <View style={styles.container}>
@@ -105,16 +112,26 @@ function CartItems({ cart, onCartCheckout, onCartUpdate }) {
       </View>
       <View style={styles.deliveryRatesContainer}>
         <AppText style={{ fontStyle: 'italic' }}>Delivery Fee</AppText>
-        <DeliveryRates
+        {
+          refreshing === false ? 
+          <DeliveryRates
           storeId={cart.store_id}
           onReady={(deliveryFee) => {
+            console.log('deliveryFee,', deliveryFee);
             const temp = +totalPrice + +deliveryFee;
             cart.total_price = temp;
             cart.delivery_fee = deliveryFee;
             setDeliveryRate(deliveryFee);
             setTotalPrice(temp);
+            cart.total_price = temp;
+            // cart.total_price += cart.delivery_fee;
+            // setTotalPrice(temp);
+            cartApi.updateCart(cart);
           }}
-        />
+          refresh={refreshing}
+        /> : <></>
+        }
+        
         <AppText style={{ fontStyle: 'italic' }}>+</AppText>
       </View>
       <View style={styles.totalPriceContainer}>

@@ -20,6 +20,9 @@ export default {
   backgroundGray: '#ebebeb',
 
   pending: '#2ecc71',
+  confirmed: '#3498db',
+  forShipping: '#e67e22',
+  forDelivery: '#3498db',
   inProgress: '#e67e22',
   completed: '#3498db',
   cancelled: '#e74c3c',

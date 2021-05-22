@@ -9,7 +9,7 @@ import AppText from '../AppText';
 import numberTransform from '../../utility/numberTransform';
 import { useIsFocused } from '@react-navigation/native';
 
-function DeliveryRates({ storeId, onReady }) {
+function DeliveryRates({ storeId, onReady, refresh }) {
   const [user, setUser] = useState();
   const [deliveryFee, setDeliveryFee] = useState(1);
 
@@ -55,12 +55,14 @@ function DeliveryRates({ storeId, onReady }) {
     }
   };
 
+
+
   useEffect(() => {
     storage.getUser().then((user) => {
       setUser(user);
     });
     functionsHandler();
-  }, [useIsFocused]);
+  }, [useIsFocused, refresh]);
 
   // get storeLocation
 
@@ -82,7 +84,7 @@ function DeliveryRates({ storeId, onReady }) {
       return totalFee;
     } catch (error) {
       console.error('Failed to compute delivery fee', error);
-      return 0;
+      return null;
     }
   };
   return (
@@ -92,7 +94,15 @@ function DeliveryRates({ storeId, onReady }) {
           P{numberTransform.numberWithComma(deliveryFee)}
         </AppText>
       ) : (
-        <AppText>Computing delivery rate...</AppText>
+        <>
+        {
+          deliveryFee === null ? (
+            <AppText>Failed to get delivery address, please check if you have set a default address on your profile.</AppText>
+          ) : 
+          <AppText>Computing delivery rate...</AppText>
+
+        }
+        </>
       )}
     </View>
   );
